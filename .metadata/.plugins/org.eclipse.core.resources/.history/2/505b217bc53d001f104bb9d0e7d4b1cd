@@ -1,0 +1,94 @@
+package com.tenco.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import com.mysql.cj.protocol.Resultset;
+
+import lombok.Data;
+
+public class UserDAOImpl implements UserDAO {
+
+	private DataSource dataSource;
+
+	public UserDAOImpl() {
+		try {
+			InitialContext ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/MyDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void addUser(UserDTO userDTO) {
+		String sql = " INSERT INTO users (username,password,email) VALUES (?,?,?) ";
+
+		try (Connection conn = dataSource.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1, userDTO.getUsername());
+				pstmt.setString(2, userDTO.getPassword());
+				pstmt.setString(3, userDTO.getEmail());
+				pstmt.executeUpdate();
+
+				conn.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				conn.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public UserDTO getUserbyId(int id) {
+		String sql = " SELECT * FROM users WHERE id = ? ";
+		UserDTO userDTO = null;
+		try (Connection conn = dataSource.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				userDTO = UserDTO.builder().id(rs.getInt("id")).username("username").password("password").email("email").createdAt("create_at")
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	@Override
+	public UserDTO getUserbyName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDTO> getAllUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateUser(UserDTO userDTO, int principiId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

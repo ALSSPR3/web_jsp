@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>할일</title>
+<style type="text/css">
+	.title{
+			text-align: center;
+	}
+	
+	.list{
+			display: flex;
+			align-content: center;
+	}
+	
+	.do{
+			background-color: #CCC;
+			border-radius: 4px;
+			margin: 5px;
+			padding: 10px;
+			font-size: 20px;
+	}
+</style>
+</head>
+<body>
+<div class="list" style="flex-direction: column;">
+<h1 class="title"><b>할 일 목록</b></h1>
+<a href="#shopping" class="do">쇼핑하기</a>
+<a href="#readbook" class="do">책 읽기</a>
+<a href="#exercise" class="do">운동하기</a>
+<a href="#codingstudy" class="do">코딩 공부하기</a>
+</div>
+</body>
+</html>

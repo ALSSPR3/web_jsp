@@ -1,0 +1,6 @@
+commentBorder=\#ffff80 | null | false | false | false | false
+commentText=\#ffff80 | null | false | false | false | false
+content_assist_proposals_background=0,0,0
+content_assist_proposals_foreground=255,255,255
+eclipse.preferences.version=1
+newFileTemplateName=New JSP File (html 5)

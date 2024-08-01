@@ -1,0 +1,27 @@
+package com.tenco.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/upload")
+public class FileUploadController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public FileUploadController() {
+		super();
+	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		// "mFile" 이라는 key 값으로 input 태그로 부터 파일 데이터를 가져올 수 있다.
+			 request.getPart("mFile");
+		
+	}
+
+}

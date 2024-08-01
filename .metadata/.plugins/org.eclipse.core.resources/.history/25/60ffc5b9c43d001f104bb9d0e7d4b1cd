@@ -1,0 +1,60 @@
+package com.tenco.model;
+
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import lombok.Data;
+
+public class UserDAOImpl implements UserDAO{
+
+	private DataSource dataSource;
+	
+	public UserDAOImpl() {
+		try {
+			InitialContext ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/MyDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void addUser(UserDTO userDTO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public UserDTO getUserbyId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDTO getUserbyName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDTO> getAllUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateUser(UserDTO userDTO, int principiId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

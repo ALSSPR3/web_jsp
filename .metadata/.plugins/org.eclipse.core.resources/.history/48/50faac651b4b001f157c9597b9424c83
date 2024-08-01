@@ -1,0 +1,82 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: auto;  /* 팝업 창 너비에 맞추기 */
+    border-collapse: collapse;
+    margin: 0; /* 중앙 정렬 */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: bold;
+}
+
+td {
+    color: #555;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 특화된 스타일 */
+.sub--menu {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.sub--menu--top h2 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.sub--menu--mid {
+    margin-top: 20px;
+}
+
+.sub--menu--table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sub--menu--table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.selected--menu {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.selected--menu:hover {
+    text-decoration: underline;
+}

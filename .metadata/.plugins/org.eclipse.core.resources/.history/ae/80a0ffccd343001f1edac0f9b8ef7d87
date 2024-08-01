@@ -1,0 +1,43 @@
+package com.tenco.tboard.repository;
+
+import java.util.List;
+
+import com.tenco.tboard.model.Comment;
+import com.tenco.tboard.repository.interfaces.CommentRepository;
+
+public class CommentRepositoryImpl implements CommentRepository{
+
+	private static final String INSERT_COMMENT_SQL = " INSERT INTO comments (board_id, user_id, content) VALUES (?, ?, ?) ";
+	private static final String DELETE_COMMENT_SQL = " DELETE FROM comments WHERE id = ? ";
+	private static final String SELEECT_COMMENT_BY_ID = " SELECT * FROM comments WHERE id = ? ";
+	private static final String SELEECT_COMMENTS_BY_BOARD_ID = " SELECT * FROM comments WHERE board_id = ? ORDER BY created_at DESC ";
+	
+	
+	
+	
+	@Override
+	public int addComment(Comment Comment) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void deleteComment(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Comment getCommentById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Comment> getCommentsByBoardId(int boardId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

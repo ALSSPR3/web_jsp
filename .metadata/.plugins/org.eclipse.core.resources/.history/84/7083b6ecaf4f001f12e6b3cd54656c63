@@ -1,0 +1,47 @@
+package com.tenco.controller;
+
+import java.io.IOException;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
+/**
+ * 서블릿 스펙에서 파일 처리를 하려면 반드시 어노테이션 하나가 더 필요하다.
+ */
+@WebServlet("/upload")
+@MultipartConfig
+public class FileUploadController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public FileUploadController() {
+		super();
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// "mFile" 이라는 key 값으로 input 태그로 부터 파일 데이터를 가져올 수 있다.
+		Part filepart = request.getPart("mFile");
+		System.out.println("part : " + filepart.getContentType());
+		System.out.println(filepart.getSize());
+		
+		// 파일을 서버측에 업로드 하는 처리 프로세스
+		
+		// 유효성 검사
+		if(filepart == null || filepart.getSize() == 0) {
+			response.setContentType("text/html");
+			response.getWriter().println("첨부 파일을 추가해주세요.");
+			return;
+		}
+		
+		// 사용자가 올린 파일 원본 이름을 가져 온다.
+		
+	}
+
+}

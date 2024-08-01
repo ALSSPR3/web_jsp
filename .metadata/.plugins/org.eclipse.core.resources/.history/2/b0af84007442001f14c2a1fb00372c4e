@@ -1,0 +1,60 @@
+package com.tenco.tboard.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/board/*")
+public class BoardController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO - BoardRepository 추가 예정
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getPathInfo();
+		// TODO - 인증 처리는 추후 추가
+		
+		switch (action) {
+		case "/create":
+			// TODO - 게시글 생성 페이지 이동 처리
+//			handleCreateBoard(request,response);
+			break;
+		case "/list":
+			// TODO - 게시글 목록 페이지 이동 처리
+			handleListBoards(request, response);
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 페이징 처리 하기
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void handleListBoards(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 게시글 목록 조회 기능
+		int page = request.getParameter(page);
+		
+		
+		request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+	}
+
+}

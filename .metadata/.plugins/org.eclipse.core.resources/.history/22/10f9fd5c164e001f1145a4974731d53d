@@ -1,0 +1,125 @@
+package com.tenco.group3.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import com.tenco.group3.model.Evaluation;
+import com.tenco.group3.model.User;
+import com.tenco.group3.repository.EvaluationRepositoryImpl;
+import com.tenco.group3.repository.interfaces.EvaluationRepository;
+import com.tenco.group3.util.AlertUtil;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet("/evaluation")
+public class EvaluationContorller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private EvaluationRepository evaluationRepository;
+
+	@Override
+	public void init() throws ServletException {
+		evaluationRepository = new EvaluationRepositoryImpl();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getServletPath();
+		HttpSession session = request.getSession();
+		switch (action) {
+		case "/evaluation":
+			showEvaluation(request, response, session);
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 교수 평가 팝업창 띄우기
+	 * 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void showEvaluation(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws ServletException, IOException {
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		request.setAttribute("subjectId", subjectId);
+		request.getRequestDispatcher("/WEB-INF/views/grade/evaluation.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getServletPath();
+		HttpSession session = request.getSession();
+
+		switch (action) {
+		case "/evaluation":
+			handlerEvaluation(request, response, session);
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 교수 평가 제출 핸들링
+	 * 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException
+	 */
+	private void handlerEvaluation(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws IOException {
+		User user = (User) session.getAttribute("principal");
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		
+		int answers[] = null;
+		System.out.println(request.getParameter("answer"));
+		// 방어적 코드 - answer 값이 null 값이면 창 닫기
+		for (int i = 0; i < 7; i++) {
+			if (request.getParameter("answer" + (i + 1)) != null) {
+				int[] answers = new int[7];
+				for (int i1 = 0; i1 < 7; i1++) { // 각 문항 답을 배열로 저장
+					answers[i1] = Integer.parseInt(request.getParameter("answer" + (i1 + 1)));
+				}
+			} else {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script> alert('올바른 값을 제출하세요.'); window.close(); </script>");
+				return;
+			}
+			String improvements = request.getParameter("improvements");
+
+			Evaluation evaluation = Evaluation.builder().answer1(answers[0]).answer2(answers[1]).answer3(answers[2])
+					.answer4(answers[3]).answer5(answers[4]).answer6(answers[5]).answer7(answers[6])
+					.improvments(improvements).studentId(user.getId()).subjectId(subjectId).build();
+
+			// 이미 평가를 작성한 경우 처리 - 필터링 하는게 더 좋음(오류가 많이 발생해 일단 보류)
+			if (evaluationRepository.isEvaluation(user.getId(), subjectId)) {
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script> alert('이미 평가를 작성했습니다.'); window.close(); </script>");
+				return;
+			}
+
+			// 평가 작성
+			evaluationRepository.addEvaluation(evaluation);
+
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script> alert('제출 되었습니다.'); window.close(); </script>");
+
+		}
+
+	}
+
+}

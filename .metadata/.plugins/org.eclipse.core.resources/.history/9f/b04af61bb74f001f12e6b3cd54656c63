@@ -1,0 +1,28 @@
+package com.tenco.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/imageList")
+public class ImageListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public ImageListController() {
+        super();
+    }
+
+    // 주소 설계 확인
+    // http://localhost:8080/imageList
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+}

@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.list--table th {
+	padding: 3px 12px;
+	width: 150px;
+	text-align: center;
+	background-color: #F0EFEF;
+}
+
+.list--table td {
+	text-align: center;
+	padding: 1px 5px;
+}
+
+.info--update--form {
+	margin-left: 20px;
+}
+
+.update--table td {
+	padding: 5px 10px;
+}
+
+.update--table label {
+	margin-bottom: 2px;
+}
+
+.button--td {
+    text-align: center;
+    width: 100%; /* Ensure the button takes the full width of the cell */
+    padding: 0; /* Remove any padding around the cell */
+}
+
+.button--td button {
+    width: 100%; /* Make the button take the full width of the cell */
+    height: 100%; /* Make the button take the full height of the cell */
+    box-sizing: border-box; /* Ensure padding and border are included in the button's total width and height */
+}
